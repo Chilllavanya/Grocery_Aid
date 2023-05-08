@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to GroceryAid Home</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body onload="disp_grocery_lists">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" th:href="@{/}">GroceryAid</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item" style="float:right"><a class="nav-link" th:href="@{/logout}">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <div class="container-fluid" style="padding: 30px 100px">
+        <div class="row">
+            <ol class="col list-group" id="glist-list-container"
+                style="margin: 20px; border: 1px solid black; border-radius: 10px; overflow: hidden;">
+                <li class="row list-group-item-primary">
+                    <button id="create-glist" class="col-1 btn-success border-0" style="margin: 0 10px; padding: 10px; font-size: 30px">+</button>
+                    <h3 class="col" style="text-align:center;line-height:60px;">Grocery Lists</h3>
+                </li>
+                <div id="glist-list">
+                </div>
+            </ol>
+
+            <ul class="col list-group" id="cart-container"
+                style="margin: 20px; border: 1px solid black; border-radius: 10px; overflow: hidden;">
+
+                <li class="row list-group-item-primary">
+                    <button class="col-1 btn-success border-0" style="margin: 0 10px; padding: 10px; font-size: 30px">+</button>
+                    <h3 class="col" style="text-align:center;vertical-align:middle;line-height:60px;">Cart</h3>
+                </li>
+                <div id="cart">
+                </div>
+            </ul>
+        </div>
+    </div>
+
+    <script th:src="@{index.js}" type="application/javascript"></script>
+
+</body>
+</html>
