@@ -63,24 +63,16 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public CartDto getCartDetails(String userName) {
 		Optional<User> userOp = userRepository.findByUserName(userName);
-		CartDto cartDto = new CartDto();
-		if (userOp.isPresent()) {
-			User user = userOp.get();
-			Optional<Cart> cartOp = cartRepository.findByUser(user);
-			
-			if (cartOp.isPresent()) {
-				Cart cart = cartOp.get();
-				cartDto.setCartID(cart.getCartID());
-				cartDto.setUser(new UserDto(user));
-				
-				GroceryListDto groceryListDto = new GroceryListDto(cart.getGroceries());
-				
-				cartDto.setGroceries(groceryListDto);
-			}
-		}
-		return cartDto;
+		if (userOp.isEmpty())
+			return null;
+		User user = userOp.get();
+		Optional<Cart> cartOp = cartRepository.findByUser(user);
+		
+		if (cartOp.isEmpty())
+			return null;
+		
+		return new CartDto(cartOp.get());
 	}
-	
 	
 	public boolean clearCart(String username){ // should not be able to delete carts only gLists and items
 		Optional<User> userOp = userRepository.findByUserName(username);
@@ -89,56 +81,16 @@ public class CartServiceImpl implements CartService {
 		
 		User user = userOp.get();
 		Optional<Cart> cartOp = cartRepository.findByUser(user);
-			
-		if (cartOp.isPresent()) {
-			Cart cart = cartOp.get();
-			GroceryList groceryList = cart.getGroceries();
-			Collection<Item> itemDB = groceryList.getItemsList(); // get items
-			
-			var delItemDto = new DeleteItemDto(); // create item dto
-			delItemDto.setUserName(user.getUserName());
-			
-			List<Item> items = new ArrayList<>();
-			for (Item item : itemDB) {
-				items.add(item);
-			}
-			// while deleting you need to delete in acending order
-			// and for adding the items you need to follow the reverse
-			cartRepository.delete(cart);
-			groceryListRepository.delete(groceryList);
-			itemRepository.deleteAll(items);
-		}
+		
+		if (cartOp.isEmpty())
+			return false;
+		
+		Cart cart = cartOp.get();
+		cart.setGroceries(null);
+		
+		cartRepository.save(cart);
 		return true;
 	}
-	
-	
-	@Override
-	public boolean deleteItems(DeleteItemDto deleteItemDto) {
-		Optional<User> userOp = userRepository.findByUserName(deleteItemDto.getUserName());
-		if (userOp.isPresent()) {
-			User user = userOp.get();
-			Optional<Cart> cartOp = cartRepository.findByUser(user);
-			
-			if (cartOp.isPresent()) {
-				Cart cartDB = cartOp.get();
-				GroceryList groceryList = cartDB.getGroceries();
-				Collection<Item> itemsDB = groceryList.getItemsList();
-				
-				for (long itemID : deleteItemDto.getItemIDs()) { // change to id
-					//Item itemToDelete = itemsDB.stream().filter(x -> x.getItemID().equalsIgnoreCase(item)).findAny().orElse(null);
-					var item = itemRepository.getById(itemID);
-					itemsDB.remove(item);
-					groceryList.setItemsList(itemsDB);
-					groceryListRepository.save(groceryList);
-					itemRepository.delete(item);
-				}
-				
-			}
-			
-		}
-		return true;
-	}
-	
 	
 	protected void updateCart(CartDto cartDto, Cart cartDB) {
 		

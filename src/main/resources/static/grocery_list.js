@@ -5,7 +5,6 @@ const headers = {
 async function get_items() {
     var path = window.location.pathname.split("/");
     let gListID = Number(path[path.length - 1]);
-    console.log(gListID);
 
     const response = await fetch("http://localhost:8080/api/v1/glist/get_glist", {
         method: "POST",
@@ -14,9 +13,8 @@ async function get_items() {
     }).catch(err => console.error(err.message));
 
     if (response.status === 200) {
-        var sus = await response.json();
-        console.log(sus);
-        return sus;
+        var resp = await response.json();
+        return resp;
     };
 }
 
@@ -25,10 +23,10 @@ async function create_item() {
     let gListID = Number(path[path.length - 1]);
 
     var item = {
-        itemName: prompt("Enter Item Name: "),
-        itemPrice: prompt("price"),
+        itemName: prompt("Enter Item Name Search Query: "),
+        itemPrice: 0,
         itemQuantity: prompt("Enter Item Quantity: "),
-        walmartSKU: prompt("walart esku")
+        walmartSKU: 0
     }
 
     const response = await fetch(`http://localhost:8080/api/v1/glist/add-item/${gListID}`, {
@@ -86,23 +84,28 @@ async function disp_items() {
 
         var sku = document.createElement("div");
         row.appendChild(sku);
-        sku.className = "col";
+        sku.className = "col-3";
         sku.innerHTML = item.walmartSKU;
 
         var name = document.createElement("div");
         row.appendChild(name);
-        name.className = "col";
+        name.className = "col-5";
         name.innerHTML = item.itemName;
 
         var price = document.createElement("div");
         row.appendChild(price);
         price.className = "col";
-        price.innerHTML = item.itemPrice;
+        price.innerHTML = "$" + item.itemPrice;
 
         var quantity = document.createElement("div");
         row.appendChild(quantity);
         quantity.className = "col";
         quantity.innerHTML = item.itemQuantity;
+
+        var amount = document.createElement("div");
+        row.appendChild(amount);
+        amount.className = "col";
+        amount.innerHTML = "$" + item.itemAmount;
 
         var delete_btn = document.createElement("btn");
         row.appendChild(delete_btn);

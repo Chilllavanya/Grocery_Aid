@@ -15,8 +15,6 @@ public class CartDto implements Serializable {
     //private Set<GroceryListDto> groceryListDtoSet = new HashSet<>();
     
     private GroceryListDto groceries = new GroceryListDto();
-    
-//    private String userName;
 
     private UserDto user;
 

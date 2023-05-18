@@ -18,6 +18,7 @@ public class GroceryListDto implements Serializable {
     private Long listID;
     private String name;
     Collection<ItemDto> itemsList;
+    private float totalPrice = 0;
     private User user;
     
     public GroceryListDto(GroceryList gList)
@@ -27,7 +28,9 @@ public class GroceryListDto implements Serializable {
         this.itemsList = new ArrayList<>();
         for (var item : gList.getItemsList())
         {
-            itemsList.add(new ItemDto(item));
+            var itemDTO = new ItemDto(item);
+            itemsList.add(itemDTO);
+            totalPrice += itemDTO.getItemAmount();
         }
         this.user = gList.getUser();
     }

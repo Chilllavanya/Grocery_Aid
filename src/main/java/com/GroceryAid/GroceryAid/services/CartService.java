@@ -13,7 +13,6 @@ public interface CartService {
 	
 	boolean addToCart(CartDto cartDto);
 	CartDto getCartDetails(String userName);
-	boolean deleteItems(DeleteItemDto deleteItemDto);
 	
 	boolean clearCart(String userName);
 }

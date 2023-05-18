@@ -22,25 +22,42 @@
         </div>
     </nav>
 
-
     <div class="container-fluid" style="padding: 30px 100px">
         <div class="row">
             <ol class="col list-group" id="glist-list-container"
-                style="margin: 20px; border: 1px solid black; border-radius: 10px; overflow: hidden;">
-                <li class="row list-group-item-primary">
-                    <button id="create-glist" class="col-1 btn-success border-0" style="margin: 0 10px; padding: 10px; font-size: 30px">+</button>
-                    <h3 class="col" style="text-align:center;line-height:60px;">Grocery Lists</h3>
+                style="margin: 20px; border: 1px solid black; border-radius: 10px; overflow: hidden; padding: 0;">
+                <li class="list-group-item-primary">
+                    <div class="row">
+                        <button id="create-glist" class="col-1 btn-success border-0" style="margin: 0 10px; padding: 10px; font-size: 30px">+</button>
+                        <h3 class="col" style="text-align:center;line-height:60px;">Grocery Lists</h3>
+                    </div>
+                </li>
+                <li class="list-group-item" style="width:100%;">
+                    <div class="row">
+                        <div class="col-3">Total Price</div>
+                        <div class="col">Name</div>
+                        <div class="close" style="opacity: 0%;">&times</div>
+                    </div>
                 </li>
                 <div id="glist-list">
                 </div>
             </ol>
 
             <ul class="col list-group" id="cart-container"
-                style="margin: 20px; border: 1px solid black; border-radius: 10px; overflow: hidden;">
+                style="margin: 20px; border: 1px solid black; border-radius: 10px; overflow: hidden; padding: 0;">
 
-                <li class="row list-group-item-primary">
-                    <button class="col-1 btn-success border-0" style="margin: 0 10px; padding: 10px; font-size: 30px">+</button>
-                    <h3 class="col" style="text-align:center;vertical-align:middle;line-height:60px;">Cart</h3>
+                <li class="list-group-item-primary">
+                    <div class="row">
+                        <button class="col-1 btn-success border-0" style="margin: 0 10px; padding: 10px; font-size: 30px">+</button>
+                        <h3 class="col" style="text-align:center;vertical-align:middle;line-height:60px;">Cart</h3>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="row">
+                        <div class="col-3">Total Price</div>
+                        <div class="col">Name</div>
+                        <div class="close" style="opacity: 0%;">&times</div>
+                    </div>
                 </li>
                 <div id="cart">
                 </div>

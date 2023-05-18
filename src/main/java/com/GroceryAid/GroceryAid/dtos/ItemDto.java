@@ -14,6 +14,7 @@ public class ItemDto {
 	private String itemName;
 	private float itemPrice;
 	private int itemQuantity;
+	private float itemAmount;
 	
 	public ItemDto(Item item)
 	{
@@ -22,5 +23,6 @@ public class ItemDto {
 		this.itemName=item.getItemName();
 		this.itemPrice=item.getItemPrice();
 		this.itemQuantity=item.getItemQuantity();
+		this.itemAmount=item.getItemPrice()*item.getItemQuantity();
 	}
 }
